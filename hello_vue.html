@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <h1>Hello Vue</h1>
+    <p>
+        {{ message }}
+    </p>
+    <p>
+        {{ messageWithExclamationPoints }}
+    </p>
+        <!-- adds an event listener to the buttons to be accessed by Vue code -->
+    <button v-on:click="addExclamationPoints">Add Exclamation Points</button>
+    <button v-on:click="clearExclamationPoints">Clear</button>
+</div>
+
+<script>
+
+    const { createApp, ref, computed } = Vue
+
+    createApp({
+        setup() {
+            // assigns the default first message
+            const message = ref('Hi')
+            // assigns a base level of exclamation points at zero
+            const numberOfExclamationPoints = ref(0)
+
+            // function to only allow 10 exclamation points to be added
+            function addExclamationPoints() {
+                if (numberOfExclamationPoints.value <= 10) {
+                   numberOfExclamationPoints.value ++
+            } else {
+                    alert('No more exclamation points!')
+                }
+            }
+            // resets the exclamation points to zero when button is clicked
+            function clearExclamationPoints() {
+                numberOfExclamationPoints.value = 0
+            }
+
+            // constant function to add exclamation on button click
+            const messageWithExclamationPoints = computed( function (){
+                let computedMessage = message.value
+                for (let x = 0; x < numberOfExclamationPoints.value; x++) {
+                    computedMessage = computedMessage + '!'
+                }
+                return computedMessage
+                })
+
+            return {
+                message,
+                addExclamationPoints,
+                numberOfExclamationPoints,
+                clearExclamationPoints,
+                messageWithExclamationPoints
+            }
+        }
+    }).mount('#app')
+
+</script>
+
+</body>
+</html>

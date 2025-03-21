@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Hello Vue Cart</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+ <!-- assign an id to the div -->
+<div id="app">
+
+    <h1> task list</h1>
+
+    <h2>Enter your new task</h2>
+
+    <label for="list">Please enter your to-do task</label>
+    <input id="list" v-model="newTask">
+    <br>
+    <!-- add the on-click element from Vue to button -->
+    <button v-on:click="addTask">Add Task</button>
+    <ul>
+         <!-- add the for element of Vue -->
+        <li v-for="task in taskList">
+            <!--  place holder for task to be entered -->
+            {{ task }}
+        </li>
+    </ul>
+</div>
+
+<script>
+    // apply a constant variable to Vue
+    const { createApp, ref} = Vue
+
+    createApp({
+        setup() {
+            // assign constant variables to add to task list
+            const taskList = ref(['Water plants', 'Pay cellphone bill', 'Wash floor'])
+            // assign an empty string to a newTask
+            const newTask = ref('')
+
+            // create a function that adds an input to existing list
+            function addTask() {
+                if (newTask.value) {
+                    taskList.value.push(newTask.value)
+                    newTask.value = ''
+                }
+            }
+            // items to return and show on page
+            return {
+                taskList,
+                newTask,
+                addTask
+
+            }
+
+        }
+        // apply Vue elements to #app id in HTML
+    }).mount('#app')
+
+</script>
+
+</body>
+</html>
+

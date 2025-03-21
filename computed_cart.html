@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Hello Vue Cart</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<style>
+    th, td {
+        width: 25%;
+        text-align: center;
+    }
+</style>
+<body>
+
+<div id="app">
+
+    <table>
+        <tr>
+            <th>Items</th>
+            <th>Unit Prices</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <!-- assign adjustable Vue variables -->
+            <td>{{ name }}</td>
+            <td> {{ unitPrice }}</td>
+            <td><input v-model="quantity"></td>
+            <td>{{ total }}</td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    const { createApp, ref, computed } = Vue
+
+    createApp({
+        setup() {
+
+            // assign default variables
+            const name = ref('hat')
+            const quantity = ref(1)
+            const unitPrice = ref(6.99)
+
+            // assign a function to calculate the total of quantity and the unit price
+            const total = computed( function () {
+                const totalPrice = quantity.value * unitPrice.value
+                // adjust the format of the price to two decimals
+                const formattedPrice = totalPrice.toFixed(2)
+                return formattedPrice
+            })
+
+
+
+            return {
+                name,
+                quantity,
+                unitPrice,
+                total
+
+            }
+
+        }
+    }).mount('#app')
+
+</script>
+
+</body>
+</html>
