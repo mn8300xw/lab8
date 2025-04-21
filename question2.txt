@@ -1,1 +1,7 @@
-2. Vue warning indicates that there is no defined variable for "total"
+2. Property ... was accessed during render but is not defined on instance.  5 points
+What does this Vue warning message mean? Can you safely ignore it? What causes it,
+and how do you fix it?  Write an answer in your own words.
+
+Vue warning indicates that there is no initial definition for the variable "total".
+It is trying to access a variable that is empty, so there is nothing to access.
+The best way to solve this is to assign an empty ref. This will give it a placeholder.
